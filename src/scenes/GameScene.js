@@ -74,68 +74,270 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  generateBackground(
+    scene,
+    width,
+    height,
+    text,
+    speed,
+    scale1,
+    scale2,
+    origin1,
+    origin2,
+    player
+  ) {
+    const count = 92 * speed;
+    let screenWidth = 0;
+    const platforms = scene.physics.add.staticGroup();
+
+    for (let i = 0; i < count; i += 1) {
+      const repeatImage = platforms
+        .create(width + screenWidth, height, text)
+        .setOrigin(origin1, origin2)
+        .setScrollFactor(speed)
+        .setScale(scale1, scale2);
+
+      if (text === "ground2") {
+        scene.physics.add.collider(player, repeatImage);
+      }
+      screenWidth += scene.scale.width;
+    }
+  }
+
   create() {
-    const height = this.scale.height;
-    const width = this.scale.width;
+    this.timer = true;
+    this.add
+      .image(this.width * 0.5, this.height * 0.3, "sky")
+      .setScrollFactor(0)
+      .setScale(0.8, 0.7);
+    this.generateBackground(
+      this,
+      0,
+      this.height * 0.45,
+      "cloud1",
+      0.07,
+      0.5,
+      0.5,
+      0,
+      1
+    );
+    this.generateBackground(
+      this,
+      0,
+      this.height,
+      "mountain",
+      0.25,
+      0.5,
+      0.5,
+      0,
+      1
+    );
+    this.generateBackground(
+      this,
+      this.width / 2,
+      this.height * 0.25,
+      "cloud2",
+      0.15,
+      0.5,
+      0.5,
+      0,
+      1
+    );
 
-    this.add.image(width * 0.5, height * 0.5, 'sky');
+    this.generateBackground(
+      this,
+      this.width / 2.4,
+      this.height / 1.5,
+      "grass2",
+      0.5,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      this.width / 7.5,
+      this.height / 1.5,
+      "grass3",
+      0.5,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      this.width / 1.3,
+      this.height / 1.45,
+      "grass1",
+      0.5,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      0,
+      this.height / 1.1,
+      "ground",
+      0.75,
+      0.5,
+      0.5,
+      0,
+      1
+    );
+    this.generateBackground(
+      this,
+      this.width / 5,
+      this.height / 1.8,
+      "tree",
+      0.75,
+      0.5,
+      0.5
+    );
+    this.generateBackground(
+      this,
+      this.width / 1.3,
+      this.height / 1.6,
+      "tree",
+      0.75,
+      0.35,
+      0.35
+    );
+    this.generateBackground(
+      this,
+      this.width / 1.8,
+      this.height / 1.3,
+      "rock2",
+      0.75,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      this.width / 3.5,
+      this.height / 1.3,
+      "rock3",
+      0.75,
+      0.4,
+      0.4
+    );
 
-    this.cloud3 = this.add.image(width / 2.5, height * 0.25, "cloud3").setOrigin(0, 1);
-    this.cloud3.setScale(0.5, 0.5);
+    this.generateBackground(
+      this,
+      this.width * 0.5,
+      this.height / 1.5,
+      "lumb",
+      0.75,
+      0.5,
+      0.5
+    );
+    this.generateBackground(
+      this,
+      this.width * 0.501,
+      this.height / 1.43,
+      "light",
+      0.75,
+      0.5,
+      0.5
+    );
+    this.generateBackground(
+      this,
+      this.width / 1.1,
+      this.height / 1.3,
+      "rock1",
+      0.75,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      this.width / 2.5,
+      this.height / 1.3,
+      "flower2",
+      0.75,
+      0.4,
+      0.4
+    );
+    this.player = this.physics.add
+      .sprite(this.width * 0.1, this.height * 0.2, "player", 19)
+      .setScale(0.35, 0.35);
+    this.player.setBounce(0.2);
+    this.player.setFlipX(true);
+    this.player.body.offset.y = -80;
+    this.generateBackground(
+      this,
+      this.width / 1.7,
+      this.height / 1.2,
+      "flower1",
+      0.75,
+      0.4,
+      0.4
+    );
+    this.generateBackground(
+      this,
+      0,
+      this.height,
+      "ground2",
+      1.25,
+      0.45,
+      0.45,
+      0,
+      1,
+      this.player
+    );
+    this.coins = [];
 
-     this.cloud4 = this.add.image(0, height * 0.35, "cloud4").setOrigin(0, 1);
-     this.cloud4.setScale(0.5, 0.5);
+    this.generateCoins();
+    this.coinAnim(this.coins);
 
-    this.mountain = this.add.image(0, height, "mountain").setOrigin(0, 1);
-    this.mountain.setScale(0.5, 0.5);
+    if (!this.anims.get("walking")) {
+      this.anims.create({
+        key: "walking",
+        frames: this.anims.generateFrameNames("player", {
+          frames: [19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+        }),
+        frameRate: 15,
+        repeat: -1,
+      });
+    }
 
+    if (!this.anims.get("enemy")) {
+      this.anims.create({
+        key: "enemy",
+        frames: this.anims.generateFrameNames("enemy", {
+          frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        }),
+        frameRate: 8,
+        repeat: -1,
+      });
+    }
 
-     this.grass3 = this.add.image(width / 2.4, height / 1.5, "grass1");
-     this.grass3.setScale(0.4, 0.4);
+    this.AttackGroup = new AttackGroup(this);
+    this.enemyGroup = new EnemyGroup(this);
 
-     this.grass2 = this.add.image(width / 1.4, height / 1.5, "grass2");
-     this.grass2.setScale(0.4, 0.4);
+    this.enemyAttackGroup = new EnemyAttackGroup(this);
+    this.enemySpawnPosition = 0;
 
-      this.grass1 = this.add.image(width / 7.5, height / 1.5, "grass3");
-      this.grass1.setScale(0.4, 0.4);
+    this.generateEnemies(this.enemyGroup, this.player);
+    this.checkOverlap(
+      this.AttackGroup,
+      this.enemyGroup,
+      this.player,
+      this.enemyAttackGroup,
+      this
+    );
 
+    this.scoreInfo = this.add
+      .text(16, 16, "score: 0", { fontSize: "32px", fill: "#000" })
+      .setScrollFactor(0);
+    this.physics.add.overlap(
+      this.player,
+      [this.coins[0], this.coins[1], this.coins[2], this.coins[3]],
+      this.collectCoin,
+      null,
+      this
+    );
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.keyX = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
-
-
-
-
-
-    this.ground = this.add.image(0, height / 1.1, "ground").setOrigin(0, 1);
-    this.ground.setScale(0.5, 0.5);
-
-    this.frontgrass = this.add.image(0, height / 1, "frontgrass").setOrigin(0, 1);
-    this.frontgrass.setScale(0.5, 0.5);
-
-     this.tree1 = this.add.image(width / 5, height / 1.6, "tree");
-     this.tree1.setScale(0.35, 0.35);
-
-     this.tree2 = this.add.image(width / 1.3, height / 1.8, "tree");
-     this.tree2.setScale(0.5, 0.5);
-
-     this.rock1 = this.add.image(width / 1.8, height / 1.3, "rock2");
-     this.rock1.setScale(0.4, 0.4);
-
-     this.rock2 = this.add.image(width / 3.5, height / 1.3, "rock1");
-     this.rock2.setScale(0.4, 0.4);
-
-     this.rock3 = this.add.image(width / 1.1, height / 1.3, "rock3");
-     this.rock3.setScale(0.4, 0.4);
-
-     this.flower1 = this.add.image(width / 1.7, height / 1.25, "flower1");
-     this.flower1.setScale(0.4, 0.4);
-
-     this.flower2 = this.add.image(width / 2.5, height / 1.3, "flower2");
-     this.flower2.setScale(0.4, 0.4);
-
-     this.lumb = this.add.image(width / 2.5, height / 1.25, "lumb").setOrigin(0, 1);
-     this.lumb.setScale(0.5, 0.5);
-
-     this.light = this.add.image(width / 2.86, height / 1.20, "light").setOrigin(0, 1);
-     this.light.setScale(0.5, 0.5);
+    this.cameras.main.setBounds(0, 0, this.width * 90, this.height);
+    this.cameras.main.startFollow(this.player);
   }
 }
