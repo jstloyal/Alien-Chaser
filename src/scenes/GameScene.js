@@ -51,5 +51,91 @@ export default class GameScene extends Phaser.Scene {
     this.load.image("flower1", flower1);
     this.load.image("flower2", flower2);
     this.load.image("ground2", ground2);
+    this.load.spritesheet("star", star, { frameWidth: 70, frameHeight: 69 });
+    this.load.spritesheet("enemy", enemy, {
+      frameWidth: 139,
+      frameHeight: 145,
+    });
+    this.load.spritesheet("enemyAttack", test, {
+      frameWidth: 202,
+      frameHeight: 142,
+    });
+
+    this.load.spritesheet("player", player, {
+      frameWidth: 145,
+      frameHeight: 190,
+      margin: 2,
+      spacing: 2,
+    });
+
+    this.load.spritesheet("playerAttack", playerAttack, {
+      frameWidth: 120,
+      frameHeight: 105,
+    });
+  }
+
+  create() {
+    const height = this.scale.height;
+    const width = this.scale.width;
+
+    this.add.image(width * 0.5, height * 0.5, 'sky');
+
+    this.cloud3 = this.add.image(width / 2.5, height * 0.25, "cloud3").setOrigin(0, 1);
+    this.cloud3.setScale(0.5, 0.5);
+
+     this.cloud4 = this.add.image(0, height * 0.35, "cloud4").setOrigin(0, 1);
+     this.cloud4.setScale(0.5, 0.5);
+
+    this.mountain = this.add.image(0, height, "mountain").setOrigin(0, 1);
+    this.mountain.setScale(0.5, 0.5);
+
+
+     this.grass3 = this.add.image(width / 2.4, height / 1.5, "grass1");
+     this.grass3.setScale(0.4, 0.4);
+
+     this.grass2 = this.add.image(width / 1.4, height / 1.5, "grass2");
+     this.grass2.setScale(0.4, 0.4);
+
+      this.grass1 = this.add.image(width / 7.5, height / 1.5, "grass3");
+      this.grass1.setScale(0.4, 0.4);
+
+
+
+
+
+
+
+    this.ground = this.add.image(0, height / 1.1, "ground").setOrigin(0, 1);
+    this.ground.setScale(0.5, 0.5);
+
+    this.frontgrass = this.add.image(0, height / 1, "frontgrass").setOrigin(0, 1);
+    this.frontgrass.setScale(0.5, 0.5);
+
+     this.tree1 = this.add.image(width / 5, height / 1.6, "tree");
+     this.tree1.setScale(0.35, 0.35);
+
+     this.tree2 = this.add.image(width / 1.3, height / 1.8, "tree");
+     this.tree2.setScale(0.5, 0.5);
+
+     this.rock1 = this.add.image(width / 1.8, height / 1.3, "rock2");
+     this.rock1.setScale(0.4, 0.4);
+
+     this.rock2 = this.add.image(width / 3.5, height / 1.3, "rock1");
+     this.rock2.setScale(0.4, 0.4);
+
+     this.rock3 = this.add.image(width / 1.1, height / 1.3, "rock3");
+     this.rock3.setScale(0.4, 0.4);
+
+     this.flower1 = this.add.image(width / 1.7, height / 1.25, "flower1");
+     this.flower1.setScale(0.4, 0.4);
+
+     this.flower2 = this.add.image(width / 2.5, height / 1.3, "flower2");
+     this.flower2.setScale(0.4, 0.4);
+
+     this.lumb = this.add.image(width / 2.5, height / 1.25, "lumb").setOrigin(0, 1);
+     this.lumb.setScale(0.5, 0.5);
+
+     this.light = this.add.image(width / 2.86, height / 1.20, "light").setOrigin(0, 1);
+     this.light.setScale(0.5, 0.5);
   }
 }
