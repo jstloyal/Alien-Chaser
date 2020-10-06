@@ -526,5 +526,67 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  update() {}
+  attackTimer() {
+    this.timer = false;
+    this.time.addEvent({
+      delay: 10,
+      repeat: 0,
+      callbackScope: this,
+      callback() {
+        Phaser.Actions.Call(this.AttackGroup.getChildren(), (child) => {
+          child.active = false;
+          this.time.addEvent({
+            delay: 500,
+            repeat: 0,
+            callbackScope: this,
+            callback() {
+              this.timer = true;
+              child.disableBody(true, true);
+            },
+          });
+        });
+      },
+    });
+  }
+
+  update() {
+    const down =
+      this.player.body.blocked.down || this.player.body.touching.down;
+
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-this.playerSpeed);
+      this.player.flipX = true;
+      if (down && !this.player.anims.isPlaying)
+        this.player.anims.play("walking");
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(this.playerSpeed);
+      this.player.flipX = false;
+      if (down && !this.player.anims.isPlaying)
+        this.player.anims.play("walking");
+    } else {
+      this.player.body.setVelocityX(0);
+      if (down) this.player.setFrame(19);
+    }
+
+    if (down && (this.cursors.space.isDown || this.cursors.up.isDown)) {
+      this.player.anims.stop("walking");
+      this.player.body.setVelocityY(-400);
+      this.player.setFrame(8);
+    }
+
+    if (this.keyX.isDown && this.player.flipX === true) {
+      if (this.timer) {
+        this.AttackGroup.shoot(this.player.x - 50, this.player.y + 40);
+        this.AttackGroup.setVelocityX(-700);
+        this.attackTimer();
+      }
+    }
+
+    if (this.keyX.isDown && this.player.flipX !== true) {
+      if (this.timer) {
+        this.AttackGroup.shoot(this.player.x + 50, this.player.y + 40);
+        this.attackTimer();
+      }
+    }
+  }
 }
