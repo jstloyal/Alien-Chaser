@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
 
+import playerAttack from "../../assets/images/effects2.png";
+import player from "../../assets/images/my-soldier.png";
+import test from "../../assets/images/alien2.png";
+import enemy from "../../assets/images/monster.png";
 import star from "../../assets/images/star.png";
 import lumb from "../../assets/images/lumb.png";
 import light from "../../assets/images/light.png";
@@ -27,6 +31,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   init() {
+    this.playerSpeed = 280;
+    this.jumpSpeed = -500;
     this.height = this.scale.height;
     this.width = this.scale.width;
   }
@@ -102,6 +108,13 @@ export default class GameScene extends Phaser.Scene {
       }
       screenWidth += scene.scale.width;
     }
+  }
+
+  collectCoin(player, star) {
+    this.score += 10;
+    this.scoreInfo.setText(`Score: ${this.score}`);
+    LocalStorage.saveLocalStorage(this.score);
+    star.disableBody(true, true);
   }
 
   create() {
@@ -340,4 +353,6 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, this.width * 90, this.height);
     this.cameras.main.startFollow(this.player);
   }
+
+  update() {}
 }
