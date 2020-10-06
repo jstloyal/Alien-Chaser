@@ -496,5 +496,35 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
   }
 
+  enemyAttackPosition(x, y, player, scenes) {
+    this.time.addEvent({
+      delay: 9000,
+      loop: true,
+      callback: () => {
+        const attack = scenes.physics.add
+          .sprite(x, y, "enemyAttack", 0)
+          .setScale(0.6, 0.6);
+        attack.setVelocityX(-300);
+        attack.body.allowGravity = false;
+        scenes.physics.add.overlap(
+          player,
+          [attack],
+          scenes.gameOver,
+          null,
+          scenes
+        );
+        Phaser.Actions.Call(this.AttackGroup.getChildren(), (playerAttack) => {
+          scenes.physics.add.overlap(
+            playerAttack,
+            [attack],
+            scenes.stopEnemy,
+            null,
+            scenes
+          );
+        });
+      },
+    });
+  }
+
   update() {}
 }
