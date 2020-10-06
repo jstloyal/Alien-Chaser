@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
 import LocalStorage from "../objects/localStorage";
 import EnemyGroup from "../helper/enemyGroup";
@@ -35,10 +35,12 @@ export default class GameScene extends Phaser.Scene {
   }
 
   init() {
-    this.playerSpeed = 280;
-    this.jumpSpeed = -500;
+    this.score = 0;
+    this.playerSpeed = 290;
+    this.jumpSpeed = -600;
     this.height = this.scale.height;
     this.width = this.scale.width;
+    this.isGameOver = false;
   }
 
   preload() {
@@ -84,6 +86,7 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   generateBackground(
     scene,
     width,
@@ -121,6 +124,7 @@ export default class GameScene extends Phaser.Scene {
     star.disableBody(true, true);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   stopEnemy(player, enemy) {
     enemy.setActive(false);
     enemy.body.enable = false;
@@ -143,6 +147,7 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   generateRandomNum(min, max) {
     return Math.random() * (max - min) + min;
   }
