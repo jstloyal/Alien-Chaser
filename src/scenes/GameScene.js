@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 
 import EnemyAttackGroup from "../helper/enemyAttackGroup";
+import AttackGroup from "../helper/playerAttackGroup";
+import playerAttack from "../../assets/images/effects2.png";
 import playerAttack from "../../assets/images/effects2.png";
 import player from "../../assets/images/my-soldier.png";
 import test from "../../assets/images/alien2.png";
