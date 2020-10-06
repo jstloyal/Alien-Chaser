@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-
 import LocalStorage from "../objects/localStorage";
 import EnemyGroup from "../helper/enemyGroup";
 import EnemyAttackGroup from "../helper/enemyAttackGroup";
