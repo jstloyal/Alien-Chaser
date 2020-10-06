@@ -200,6 +200,65 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  checkOverlap(AttackGroup, enemyGroup, player, enemyAttackGroup, scene) {
+    Phaser.Actions.Call(AttackGroup.getChildren(), (laserChild) => {
+      scene.generateBackground(
+        scene,
+        0,
+        this.height,
+        "ground2",
+        1.25,
+        0.45,
+        0.45,
+        0,
+        1,
+        laserChild
+      );
+      Phaser.Actions.Call(enemyGroup.getChildren(), (enemyChild) => {
+        scene.generateBackground(
+          scene,
+          this.width * 0.5,
+          this.height,
+          "ground2",
+          1.25,
+          0.45,
+          0.45,
+          0,
+          1,
+          enemyChild
+        );
+        scene.physics.add.overlap(
+          laserChild,
+          [enemyChild],
+          scene.stopEnemy,
+          null,
+          scene
+        );
+        scene.physics.add.overlap(
+          player,
+          [enemyChild],
+          scene.gameOver,
+          null,
+          scene
+        );
+      });
+    });
+    Phaser.Actions.Call(AttackGroup.getChildren(), (laserChild) => {
+      Phaser.Actions.Call(
+        enemyAttackGroup.getChildren(),
+        (enemyAttackChild) => {
+          scene.physics.add.overlap(
+            laserChild,
+            [enemyAttackChild],
+            scene.stopEnemy,
+            null,
+            scene
+          );
+        }
+      );
+    });
+  }
+
   create() {
     this.timer = true;
     this.add
