@@ -182,6 +182,24 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
+  generateEnemies(enemyGroup, player) {
+    let enemySpawnPosition = 0;
+    for (let i = 0; i < 30; i += 1) {
+      enemyGroup.createEnemy(3000 + enemySpawnPosition, this.height * 0.2);
+      this.enemyAttackPosition(
+        3000 + enemySpawnPosition,
+        this.height * 0.753,
+        player,
+        this
+      );
+      enemySpawnPosition += this.width * 3.2;
+    }
+    enemyGroup.children.iterate((child) => {
+      child.setScale(0.45, 0.45);
+      child.body.offset.y = -80;
+    });
+  }
+
   create() {
     this.timer = true;
     this.add
