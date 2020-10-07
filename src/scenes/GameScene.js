@@ -73,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.load.spritesheet("player", player, {
-      frameWidth: 145,
+      frameWidth: 149,
       frameHeight: 190,
       margin: 2,
       spacing: 2,
