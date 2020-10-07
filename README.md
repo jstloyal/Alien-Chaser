@@ -99,7 +99,7 @@ You can use the following controls to play the game:
 
 #### Clone the repository to run the app.
 
-- $ `git clone git@github.com:BrittanyBlake/JS-Shooter-game`
+- $ `git clone git@github.com:jstloyal/Alien-Chaser.git`
 - `cd` into the project directory
 - Run `npm install` to install the necessary modules
 - Run `npm start` to automatically open the local server
