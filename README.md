@@ -89,7 +89,7 @@ You can use the following controls to play the game:
 </p>
 
 ## LIVE DEMO
-[Project live link]()
+[Project live link](https://relaxed-easley-57a150.netlify.app/)
 
 ## Contributing
 <!-- ABOUT THE PROJECT -->
