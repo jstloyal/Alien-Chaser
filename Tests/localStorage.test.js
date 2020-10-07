@@ -1,7 +1,7 @@
 import LocalStorage from '../src/objects/localStorage';
 
-test('Data should be saved to localStorage', () => {
-  LocalStorage.saveLocalStorage('Brittany');
+test('Should save data to localStorage', () => {
+  LocalStorage.saveLocalStorage('Tayo');
   expect(JSON.parse(localStorage.getItem('score'))).toBe('Tayo');
 });
 

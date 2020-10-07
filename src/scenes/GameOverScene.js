@@ -4,7 +4,7 @@ import API from "../objects/api";
 import Dom from "../objects/dom";
 import LocalStorage from "../objects/localStorage";
 import logoBg from "../../assets/images/my-soldier.png";
-import enemyImg2 from "../../assets/images/my-soldier.png";
+import enemyImg2 from "../../assets/images/monster.png";
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
