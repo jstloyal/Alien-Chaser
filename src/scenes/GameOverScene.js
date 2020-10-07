@@ -1,19 +1,19 @@
-import Phaser from "phaser";
-import Button from "../objects/Button";
-import API from "../objects/api";
-import Dom from "../objects/dom";
-import LocalStorage from "../objects/localStorage";
-import logoBg from "../../assets/images/my-soldier.png";
-import enemyImg2 from "../../assets/images/monster.png";
+import Phaser from 'phaser';
+import Button from '../objects/Button';
+import API from '../objects/api';
+import Dom from '../objects/dom';
+import LocalStorage from '../objects/localStorage';
+import logoBg from '../../assets/images/my-soldier.png';
+import enemyImg2 from '../../assets/images/monster.png';
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
-    super({ key: "GameOverScene" });
+    super({ key: 'GameOverScene' });
   }
 
   preload() {
-    this.load.image("logoBg", logoBg);
-    this.load.image("enemyImg2", enemyImg2);
+    this.load.image('logoBg', logoBg);
+    this.load.image('enemyImg2', enemyImg2);
     // eslint-disable-next-line no-unused-expressions
     API;
   }
@@ -25,21 +25,21 @@ export default class GameOverScene extends Phaser.Scene {
     const height = this.scale.height * 0.5;
     const width = this.scale.width * 0.5;
     this.logo = this.add
-      .sprite(width * 0.3, height, "logoBg")
+      .sprite(width * 0.3, height, 'logoBg')
       .setScale(0.7, 0.7);
     // this.add.image(width * 1, height * 0.2, "enemyImg").setScale(0.33, 0.5);
     this.enemy = this.add
-      .sprite(width * 1.7, height, "enemyImg2")
+      .sprite(width * 1.7, height, 'enemyImg2')
       .setScale(0.7, 0.7);
     this.enemy.flipX = true;
 
     const score = LocalStorage.readLocalStorage();
     LocalStorage.clearLocalStorage();
 
-    if (!this.anims.get("logo")) {
+    if (!this.anims.get('logo')) {
       this.anims.create({
-        key: "logo",
-        frames: this.anims.generateFrameNames("logo", {
+        key: 'logo',
+        frames: this.anims.generateFrameNames('logo', {
           frames: [18, 19, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
         }),
         frameRate: 7.5,
@@ -47,10 +47,10 @@ export default class GameOverScene extends Phaser.Scene {
       });
     }
 
-    if (!this.anims.get("enemy")) {
+    if (!this.anims.get('enemy')) {
       this.anims.create({
-        key: "enemy",
-        frames: this.anims.generateFrameNames("enemy", {
+        key: 'enemy',
+        frames: this.anims.generateFrameNames('enemy', {
           frames: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
         }),
         frameRate: 8,
@@ -58,22 +58,22 @@ export default class GameOverScene extends Phaser.Scene {
       });
     }
 
-    this.logo.anims.play("logo");
-    this.enemy.anims.play("enemy");
+    this.logo.anims.play('logo');
+    this.enemy.anims.play('enemy');
 
-    this.title = this.add.text(width, 128, "GAME OVER", {
+    this.title = this.add.text(width, 128, 'GAME OVER', {
       fontSize: 47,
-      fontStyle: "bold",
-      color: "white",
-      align: "center",
+      fontStyle: 'bold',
+      color: 'white',
+      align: 'center',
     });
     this.title.setOrigin(0.5);
 
     this.title = this.add.text(width, 200, `Your score is: ${score}`, {
       fontSize: 32,
-      fontStyle: "bold",
-      color: "white",
-      align: "center",
+      fontStyle: 'bold',
+      color: 'white',
+      align: 'center',
     });
     this.title.setOrigin(0.5);
 
@@ -81,30 +81,30 @@ export default class GameOverScene extends Phaser.Scene {
       this,
       width * 0.35,
       height * 1.7,
-      "blueButton1",
-      "blueButton2",
-      "Play Again",
-      "Game"
+      'blueButton1',
+      'blueButton2',
+      'Play Again',
+      'Game',
     );
 
     this.creditButton = new Button(
       this,
       width * 1,
       height * 1.7,
-      "blueButton1",
-      "blueButton2",
-      "Credits",
-      "Credits"
+      'blueButton1',
+      'blueButton2',
+      'Credits',
+      'Credits',
     );
 
     this.scoresButton = new Button(
       this,
       width * 1.65,
       height * 1.7,
-      "blueButton1",
-      "blueButton2",
-      "Top Scores",
-      "LeaderBoardScene"
+      'blueButton1',
+      'blueButton2',
+      'Top Scores',
+      'LeaderBoardScene',
     );
 
     Dom.form();

@@ -1,17 +1,17 @@
 const API = (() => {
-  const key = "J1AeG3C7yinMUCRxF4t4 ";
+  const key = 'J1AeG3C7yinMUCRxF4t4 ';
 
   async function getScores() {
     try {
       const scores = await fetch(
         `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
 
       return scores.json();
@@ -25,16 +25,16 @@ const API = (() => {
       const result = await fetch(
         `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             user: name,
             score,
           }),
-        }
+        },
       );
 
       return result.json();

@@ -1,13 +1,13 @@
-import Phaser from "phaser";
-import logo from "../../assets/images/my-soldier.png";
+import Phaser from 'phaser';
+import logo from '../../assets/images/my-soldier.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
-    super("Boot");
+    super('Boot');
   }
 
   preload() {
-    this.load.spritesheet("logo", logo, {
+    this.load.spritesheet('logo', logo, {
       frameWidth: 145,
       frameHeight: 190,
       margin: 8,
@@ -16,6 +16,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("Preloader");
+    this.scene.start('Preloader');
   }
 }
