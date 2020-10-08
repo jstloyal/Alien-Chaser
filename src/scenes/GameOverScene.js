@@ -27,7 +27,6 @@ export default class GameOverScene extends Phaser.Scene {
     this.logo = this.add
       .sprite(width * 0.3, height, 'logoBg')
       .setScale(0.7, 0.7);
-    // this.add.image(width * 1, height * 0.2, "enemyImg").setScale(0.33, 0.5);
     this.enemy = this.add
       .sprite(width * 1.7, height, 'enemyImg2')
       .setScale(0.7, 0.7);
